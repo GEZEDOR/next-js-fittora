@@ -21,9 +21,8 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 }
 
 // Страница товара
-export default async function ProductPage(props: ProductPageProps) {
-  const { params } = await Promise.resolve(props);
-  const { slug } = params;
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await Promise.resolve(params);
 
   const products = await ProductService.getAll();
   const product = products.find((p) => p.slug === slug);
