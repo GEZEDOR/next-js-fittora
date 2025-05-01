@@ -1,12 +1,9 @@
 import Catalog from "@/components/sections/catalog/Catalog";
-import Collection from "@/components/sections/collection/Collection";
-import Hero from "@/components/sections/hero/Hero";
 import { ProductService } from "@/services/product.service";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Fittora",
-  description: "E-Commerce",
+  title: "Catalog",
 };
 
 async function getProducts() {
@@ -15,14 +12,8 @@ async function getProducts() {
   return data;
 }
 
-export default async function HomePage() {
+export default async function CatalogPage() {
   const data = await getProducts();
 
-  return (
-    <>
-      <Hero />
-      <Catalog products={data} isFull={false} />
-      <Collection />
-    </>
-  );
+  return <Catalog isFull products={data} />;
 }
