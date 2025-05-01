@@ -22,7 +22,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 // Страница товара
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await Promise.resolve(params);
+  const { slug } = params;
 
   const products = await ProductService.getAll();
   const product = products.find((p) => p.slug === slug);
