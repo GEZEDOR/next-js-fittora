@@ -23,8 +23,8 @@ const Collection = () => {
                 Street Wear.
               </div>
               <div className="mb-5 text-[18px] font-light text-gray-400 sm:w-[60%] md:w-[65%] lg:w-[80%] xl:w-[75%]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Dignissim massa diam elementum.
+                Discover the perfect blend of comfort and style with our latest
+                collection.
               </div>
               <Link
                 href="/catalog"

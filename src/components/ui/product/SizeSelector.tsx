@@ -4,16 +4,22 @@ interface SizeSelectorProps {
   };
   selectedSize: string | null;
   onSizeSelect: (size: string) => void;
+  showError?: boolean;
 }
 
 const SizeSelector = ({
   item,
   selectedSize,
   onSizeSelect,
+  showError,
 }: SizeSelectorProps) => (
   <div className="mb-2">
     <p className="text-lg font-semibold">Selected Size: {selectedSize || ""}</p>
-    <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
+    <div
+      className={`mt-4 grid grid-cols-3 gap-2 rounded-md p-2 sm:grid-cols-4 md:grid-cols-5 ${
+        showError ? "border border-red-500" : ""
+      }`}
+    >
       {item.sizes.map((size, index) => (
         <button
           key={index}

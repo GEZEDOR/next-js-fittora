@@ -23,7 +23,8 @@ interface CartItem extends Product {
   quantity: number;
   color: string;
   size: string;
-  images: string[]; // изображения от вариации
+  image: string;
+  images: string[];
 }
 
 interface StoreState {
@@ -81,6 +82,7 @@ export const useStore = create<StoreState & StoreActions>((set) => ({
               sizes: product.sizes,
               variations: product.variations,
               images: variation.images,
+              image: variation.image,
               color: variation.colorName,
               size: size,
               quantity: 1,

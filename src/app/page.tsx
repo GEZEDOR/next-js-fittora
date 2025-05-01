@@ -1,5 +1,6 @@
 import Catalog from "@/components/sections/catalog/Catalog";
 import Collection from "@/components/sections/collection/Collection";
+import DiscountSubscribe from "@/components/sections/discount/Discount";
 import Hero from "@/components/sections/hero/Hero";
 import { ProductService } from "@/services/product.service";
 import type { Metadata } from "next";
@@ -23,6 +24,7 @@ export default async function HomePage() {
       <Hero />
       <Catalog products={data} isFull={false} />
       <Collection />
+      <DiscountSubscribe />
     </>
   );
 }

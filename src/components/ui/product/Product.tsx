@@ -26,13 +26,18 @@ const Product: FC<ISingleProduct> = ({ product }) => {
   const [selectedVariation, setSelectedVariation] =
     useState<ProductVariation | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [showSizeError, setShowSizeError] = useState(false);
 
   const addToCart = useStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
-    if (product && selectedVariation && selectedSize) {
-      addToCart(product, selectedVariation, selectedSize);
+    if (!selectedSize) {
+      setShowSizeError(true);
+      return;
     }
+
+    setShowSizeError(false); // сброс ошибки если все ок
+    addToCart(product, selectedVariation!, selectedSize);
   };
 
   useEffect(() => {
@@ -155,7 +160,11 @@ const Product: FC<ISingleProduct> = ({ product }) => {
           <SizeSelector
             item={product}
             selectedSize={selectedSize}
-            onSizeSelect={setSelectedSize}
+            onSizeSelect={(size) => {
+              setSelectedSize(size);
+              setShowSizeError(false); // сбрасываем ошибку при выборе
+            }}
+            showError={showSizeError}
           />
 
           <div>
