@@ -56,7 +56,7 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-[calc(75vh-120px)] items-center justify-center">
         <p className="text-lg text-gray-500">Your cart is empty</p>
       </div>
     );
