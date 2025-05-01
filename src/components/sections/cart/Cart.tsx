@@ -15,6 +15,7 @@ export default function CartPage() {
   const discountCode = useStore((state) => state.discountCode);
   const applyDiscount = useStore((state) => state.applyDiscount);
   const clearDiscount = useStore((state) => state.clearDiscount);
+  const clearCart = useStore((state) => state.clearCart);
 
   const [discount, setDiscount] = useState(0);
   const [promo, setPromo] = useState("");
@@ -228,6 +229,12 @@ export default function CartPage() {
           </Link>
           .
         </p>
+        <button
+          className="mt-5 w-full rounded-full bg-violet-600 py-3 font-semibold text-white"
+          onClick={() => clearCart()}
+        >
+          Clear cart
+        </button>
       </div>
     </div>
   );
