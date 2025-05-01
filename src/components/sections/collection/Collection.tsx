@@ -7,13 +7,13 @@ const Collection = () => {
   return (
     <div className="mx-auto mb-20 w-full px-4 py-4 lg:px-15">
       <div className="relative grid w-full lg:grid-cols-1 xl:grid-cols-[3fr_2fr]">
-        <div className="">
+        <div>
           <div className="relative h-[660px]">
             <Image
               src="/collection/collection-item1.jpg"
               alt="collection-item1"
-              fill
               className="rounded-xl object-cover"
+              fill
             />
             <div className="absolute bottom-10 flex flex-col justify-center px-3.5 sm:w-[75%] md:right-0 md:w-[90%] lg:w-[50%] xl:w-[50%]">
               <div className="text-lg text-gray-400 uppercase">

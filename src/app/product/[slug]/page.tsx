@@ -5,7 +5,7 @@ import { ProductService } from "@/services/product.service";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Товар",
+  title: "Product",
 };
 
 interface ProductPageProps {
@@ -33,7 +33,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <div className="mt-4 flex justify-center">
-      <Product products={[product]} />
+      <Product product={product} />
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default function CartPage() {
         <div className="space-y-6">
           {cart.map((item) => (
             <div
-              key={`${item._id}-${item.color}`}
+              key={`${item._id}-${item.color}-${item.size}`}
               className="flex gap-4 border-b pb-6"
             >
               <Image
@@ -85,12 +85,16 @@ export default function CartPage() {
                   <button
                     className="rounded border p-1"
                     onClick={() =>
-                      addToCart(item, {
-                        colorName: item.color,
-                        colorHex: "",
-                        image: "",
-                        images: item.images,
-                      })
+                      addToCart(
+                        item,
+                        {
+                          colorName: item.color,
+                          colorHex: "",
+                          image: "",
+                          images: item.images,
+                        },
+                        item.size,
+                      )
                     }
                   >
                     <Plus size={16} />
@@ -100,7 +104,9 @@ export default function CartPage() {
                   </button>
                   <button
                     className="ml-2 text-red-500"
-                    onClick={() => removeFromCart(item._id)}
+                    onClick={() =>
+                      removeFromCart(item._id, item.color, item.size)
+                    }
                   >
                     <Trash2 size={18} />
                   </button>

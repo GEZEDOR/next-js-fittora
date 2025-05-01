@@ -1,59 +1,51 @@
 "use client";
 import type { IProduct, ProductVariation } from "@/types/product.interface";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import { Heart } from "lucide-react";
 import { useStore } from "@/store/store";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-
-// import required modules
 import { Navigation, FreeMode, Thumbs } from "swiper/modules";
-import NotFound from "@/app/not-found";
-import SizeSelector from "./SizeSelector";
+
 import Variations from "./Variations";
+import SizeSelector from "./SizeSelector";
 
 interface ISingleProduct {
-  products: IProduct[];
+  product: IProduct;
 }
 
-const Product: FC<ISingleProduct> = ({ products }) => {
-  const params = useParams<{ slug: string }>();
+const Product: FC<ISingleProduct> = ({ product }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [liked, setLiked] = useState(false);
-  const item = products.find((item) => item.slug === params.slug) || null;
   const [selectedVariation, setSelectedVariation] =
     useState<ProductVariation | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const addToCart = useStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
-    if (item) {
-      if (selectedVariation) {
-        addToCart(item, selectedVariation);
-      }
+    if (product && selectedVariation && selectedSize) {
+      addToCart(product, selectedVariation, selectedSize);
     }
   };
 
   useEffect(() => {
-    if (item && item.variations.length > 0) {
-      setSelectedVariation(item.variations[0]);
+    if (product && product.variations.length > 0) {
+      setSelectedVariation(product.variations[0]);
     }
-  }, [item]);
+  }, [product]);
 
-  if (!item) return <NotFound />;
   if (!selectedVariation) return null;
 
   return (
     <div className="mx-auto mb-20 flex w-full flex-col gap-10 px-4 py-4 lg:flex-row lg:px-15">
-      {/* Левая часть: изображения */}
+      {/* Изображения */}
       <div className="flex w-full flex-col items-center gap-4 lg:w-1/2">
         <div className="w-full max-w-md">
           <Swiper
@@ -73,10 +65,10 @@ const Product: FC<ISingleProduct> = ({ products }) => {
               <SwiperSlide key={index}>
                 <Image
                   src={photo}
-                  alt={item.name}
-                  className="w-full rounded-md object-cover"
-                  width={428}
-                  height={642}
+                  alt={product.name}
+                  className="rounded-md object-cover"
+                  width={1260}
+                  height={1890}
                 />
               </SwiperSlide>
             ))}
@@ -97,29 +89,28 @@ const Product: FC<ISingleProduct> = ({ products }) => {
               <SwiperSlide key={index}>
                 <Image
                   src={photo}
-                  alt={item.name}
-                  className="w-full rounded-md object-cover"
-                  width={428}
-                  height={642}
+                  alt={product.name}
+                  className="rounded-md object-cover"
+                  width={1260}
+                  height={1890}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
-
-      {/* Правая часть: инфо */}
+      Папа, [5/1/2025 7:40 PM]
+      {/* Описание товара */}
       <div className="flex w-full justify-center lg:w-1/2">
-        <div className="flex w-full max-w-md flex-col">
-          {/* Верх: Информация о товаре */}
+        <div className="flex w-full max-w-md flex-col justify-between">
           <div>
             <div className="flex">
               <div className="w-4/5">
                 <h2 className="text-2xl font-bold text-gray-800">
-                  {item.name}
+                  {product.name}
                 </h2>
                 <p className="mb-4 text-xl font-semibold text-gray-800">
-                  ${item.price}
+                  ${product.price}
                 </p>
               </div>
               <div className="flex w-1/5 items-start justify-end">
@@ -140,32 +131,36 @@ const Product: FC<ISingleProduct> = ({ products }) => {
             </div>
 
             <Variations
-              item={item}
+              item={product}
               selectedVariation={selectedVariation}
               setSelectedVariation={setSelectedVariation}
             />
 
             <p className="mb-2 text-gray-600">
               <span className="font-semibold">Category: </span>
-              {item.category}
+              {product.category}
             </p>
 
             <p className="mb-2 text-gray-600">
               <span className="font-semibold">Material: </span>
-              {item.material}
+              {product.material}
             </p>
 
-            <p className="mb-5 text-gray-600">
+            <p className="mb-2 text-gray-600">
               <span className="font-semibold">Description: </span>
-              {item.description}
+              {product.description}
             </p>
           </div>
 
-          {/* Низ: Кнопка и размеры */}
-          <SizeSelector item={item} />
+          <SizeSelector
+            item={product}
+            selectedSize={selectedSize}
+            onSizeSelect={setSelectedSize}
+          />
+
           <div>
             <button
-              className="mt-5 w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-gray-500"
+              className="w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-gray-500"
               onClick={handleAddToCart}
             >
               ADD TO CART
@@ -176,4 +171,5 @@ const Product: FC<ISingleProduct> = ({ products }) => {
     </div>
   );
 };
+
 export default Product;

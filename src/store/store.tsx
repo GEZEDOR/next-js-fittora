@@ -22,7 +22,8 @@ interface Product {
 interface CartItem extends Product {
   quantity: number;
   color: string;
-  images: string[];
+  size: string;
+  images: string[]; // изображения от вариации
 }
 
 interface StoreState {
@@ -30,24 +31,33 @@ interface StoreState {
 }
 
 interface StoreActions {
-  addToCart: (product: Product, variation: ProductVariation) => void;
-  removeFromCart: (_id: string) => void;
+  addToCart: (
+    product: Product,
+    variation: ProductVariation,
+    size: string,
+  ) => void;
+  removeFromCart: (_id: string, color: string, size: string) => void;
   clearCart: () => void;
 }
 
 export const useStore = create<StoreState & StoreActions>((set) => ({
   cart: [],
-  addToCart: (product, variation) =>
+
+  addToCart: (product, variation, size) =>
     set((state) => {
       const existingItem = state.cart.find(
         (item) =>
-          item._id === product._id && item.color === variation.colorName,
+          item._id === product._id &&
+          item.color === variation.colorName &&
+          item.size === size,
       );
 
       if (existingItem) {
         return {
           cart: state.cart.map((item) =>
-            item._id === product._id && item.color === variation.colorName
+            item._id === product._id &&
+            item.color === variation.colorName &&
+            item.size === size
               ? { ...item, quantity: item.quantity + 1 }
               : item,
           ),
@@ -57,9 +67,18 @@ export const useStore = create<StoreState & StoreActions>((set) => ({
           cart: [
             ...state.cart,
             {
-              ...product,
-              images: variation.images, // заменяем общие картинки на картинки выбранной вариации
-              color: variation.colorName, // 👈 добавляем цвет
+              _id: product._id,
+              name: product.name,
+              slug: product.slug,
+              description: product.description,
+              material: product.material,
+              category: product.category,
+              price: product.price,
+              sizes: product.sizes,
+              variations: product.variations,
+              images: variation.images,
+              color: variation.colorName,
+              size: size,
               quantity: 1,
             },
           ],
@@ -67,9 +86,13 @@ export const useStore = create<StoreState & StoreActions>((set) => ({
       }
     }),
 
-  removeFromCart: (_id: string) =>
+  removeFromCart: (_id, color, size) =>
     set((state) => ({
-      cart: state.cart.filter((item) => item._id !== _id),
+      cart: state.cart.filter(
+        (item) =>
+          !(item._id === _id && item.color === color && item.size === size),
+      ),
     })),
+
   clearCart: () => set({ cart: [] }),
 }));
