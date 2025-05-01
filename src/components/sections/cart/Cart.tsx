@@ -214,7 +214,7 @@ export default function CartPage() {
           </Link>
         </p>
 
-        <button className="w-full rounded-full bg-black py-3 font-semibold text-white">
+        <button className="w-full cursor-pointer rounded-full bg-black py-3 font-semibold text-white hover:bg-green-700">
           Checkout
         </button>
 
@@ -229,12 +229,14 @@ export default function CartPage() {
           </Link>
           .
         </p>
-        <button
-          className="mt-5 w-full rounded-full bg-violet-600 py-3 font-semibold text-white"
-          onClick={() => clearCart()}
-        >
-          Clear cart
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="mt-5 w-[50%] cursor-pointer rounded-full bg-violet-600 py-3 font-semibold text-white hover:bg-violet-700"
+            onClick={() => clearCart()}
+          >
+            Clear cart
+          </button>
+        </div>
       </div>
     </div>
   );
