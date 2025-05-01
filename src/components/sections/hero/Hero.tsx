@@ -4,8 +4,8 @@ import HeroRight from "./HeroRight";
 
 const Hero: FC = () => {
   return (
-    <section className="mx-auto max-w-2xl px-4 lg:max-w-7xl">
-      <div className="flex flex-wrap justify-between md:mb-16 xl:mb-25">
+    <section className="mx-auto mb-10 max-w-2xl px-4 md:mb-16 lg:max-w-7xl xl:mb-25">
+      <div className="flex flex-wrap justify-between">
         <HeroLeft />
         <HeroRight />
       </div>
