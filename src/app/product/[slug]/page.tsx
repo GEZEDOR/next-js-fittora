@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Product from "@/components/ui/product/Product";
+import Product from "@/components/sections/product/Product";
 import { ProductService } from "@/services/product.service";
 
 import type { Metadata } from "next";

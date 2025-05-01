@@ -23,8 +23,10 @@ const SizeSelector = ({
       {item.sizes.map((size, index) => (
         <button
           key={index}
-          className={`w-full border py-2 text-sm font-medium text-black transition hover:border-gray-950 hover:bg-gray-200 ${
-            selectedSize === size ? "border-black" : "border-gray-400"
+          className={`w-full border py-2 text-sm font-medium text-black transition hover:border-gray-950 hover:bg-violet-300 hover:text-white ${
+            selectedSize === size
+              ? "border-black bg-violet-400 text-white"
+              : "border-gray-400"
           }`}
           onClick={() => onSizeSelect(size)}
         >
