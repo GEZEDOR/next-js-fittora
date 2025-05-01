@@ -8,20 +8,12 @@ export const metadata: Metadata = {
   title: "Product",
 };
 
-interface ProductPageProps {
-  params: { slug: string };
-}
-
-// Функция для статической генерации маршрутов
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const products = await ProductService.getAll();
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
-}
+// interface ProductPageProps {
+//   params: { slug: string };
+// }
 
 // Страница товара
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: any) {
   const { slug } = await Promise.resolve(params);
 
   const products = await ProductService.getAll();
