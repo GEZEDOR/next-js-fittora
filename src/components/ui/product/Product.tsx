@@ -66,9 +66,9 @@ const Product: FC<ISingleProduct> = ({ product }) => {
                 <Image
                   src={photo}
                   alt={product.name}
-                  className="rounded-md object-cover"
-                  width={1260}
-                  height={1890}
+                  className="w-full rounded-md object-cover"
+                  width={428}
+                  height={642}
                 />
               </SwiperSlide>
             ))}
@@ -91,18 +91,18 @@ const Product: FC<ISingleProduct> = ({ product }) => {
                   src={photo}
                   alt={product.name}
                   className="rounded-md object-cover"
-                  width={1260}
-                  height={1890}
+                  width={428}
+                  height={642}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
-      Папа, [5/1/2025 7:40 PM]
+
       {/* Описание товара */}
       <div className="flex w-full justify-center lg:w-1/2">
-        <div className="flex w-full max-w-md flex-col justify-between">
+        <div className="flex w-full max-w-md flex-col">
           <div>
             <div className="flex">
               <div className="w-4/5">
@@ -146,7 +146,7 @@ const Product: FC<ISingleProduct> = ({ product }) => {
               {product.material}
             </p>
 
-            <p className="mb-2 text-gray-600">
+            <p className="mb-5 text-gray-600">
               <span className="font-semibold">Description: </span>
               {product.description}
             </p>
@@ -160,7 +160,7 @@ const Product: FC<ISingleProduct> = ({ product }) => {
 
           <div>
             <button
-              className="w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-gray-500"
+              className="mt-5 w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-gray-500"
               onClick={handleAddToCart}
             >
               ADD TO CART
