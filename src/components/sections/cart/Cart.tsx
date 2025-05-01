@@ -1,10 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useStore } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2, Heart } from "lucide-react";
-import { useState, useEffect } from "react";
 
 export default function CartPage() {
   const cart = useStore((state) => state.cart);
@@ -19,6 +19,11 @@ export default function CartPage() {
   const [discount, setDiscount] = useState(0);
   const [promo, setPromo] = useState("");
   const [invalidPromo, setInvalidPromo] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const subtotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -33,10 +38,9 @@ export default function CartPage() {
       clearDiscount();
       setInvalidPromo(true);
     }
-    setPromo(""); // очищаем инпут
+    setPromo("");
   };
 
-  // При каждом изменении корзины — пересчитать скидку если промоакция уже применена
   useEffect(() => {
     if (discountApplied && discountCode === "DISCOUNT10") {
       setDiscount(subtotal * 0.1);
@@ -46,6 +50,8 @@ export default function CartPage() {
   }, [subtotal, discountApplied, discountCode]);
 
   const total = subtotal - discount;
+
+  if (!isMounted) return null;
 
   if (cart.length === 0) {
     return (
@@ -95,7 +101,9 @@ export default function CartPage() {
                       if (item.quantity > 1) {
                         useStore.setState({
                           cart: cart.map((i) =>
-                            i._id === item._id
+                            i._id === item._id &&
+                            i.color === item.color &&
+                            i.size === item.size
                               ? { ...i, quantity: i.quantity - 1 }
                               : i,
                           ),
@@ -111,16 +119,12 @@ export default function CartPage() {
                   <button
                     className="rounded border p-1"
                     onClick={() => {
-                      addToCart(
-                        item,
-                        {
-                          colorName: item.color,
-                          colorHex: "",
-                          image: "",
-                          images: [],
-                        },
-                        item.size,
+                      const variation = item.variations.find(
+                        (v) => v.colorName === item.color,
                       );
+                      if (!variation) return;
+
+                      addToCart(item, variation, item.size);
                     }}
                   >
                     <Plus size={16} />
