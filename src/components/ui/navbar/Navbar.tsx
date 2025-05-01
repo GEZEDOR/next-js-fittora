@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import NavItem from "./NavItem";
 import { menu } from "./menu.data";
-import { Menu, X } from "lucide-react";
 import CartIcon from "./CartIcon";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,39 +24,47 @@ const Navbar = () => {
           ))}
           <CartIcon />
         </nav>
-        {/* Burger button */}
-        <button
-          className="text-black lg:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+
+        {/* Mobile right side */}
+        <div className="flex items-center gap-4 lg:hidden">
+          <CartIcon />
+          {/* Burger button */}
+          <button
+            className="text-black"
+            onClick={() => setIsOpen(true)}
+            aria-label="Toggle Menu"
+          >
+            <Menu size={28} />
+          </button>
+        </div>
       </div>
 
-      {/* overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      {/* Mobile menu */}
+      {/* Модальное мобильное меню */}
       <div
-        className={`fixed top-20 right-0 z-20 w-72 bg-white shadow-lg transition-transform duration-300 ease-in-out lg:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 z-40 flex h-full w-full items-center justify-center bg-black/50 backdrop-blur-sm transition-transform ${
+          isOpen ? "translate-y-0" : "translate-y-full"
+        } lg:hidden`}
       >
-        <nav className="flex flex-col gap-6 p-6">
-          {menu.map((item) => (
-            <NavItem
-              key={item.link}
-              item={item}
-              onClick={() => setIsOpen(false)}
-            />
-          ))}
-        </nav>
+        <div className="relative w-4/5 max-w-sm rounded-lg bg-white p-6 shadow-lg">
+          {/* Кнопка закрытия */}
+          <button
+            className="absolute top-3 right-3 text-gray-700"
+            onClick={() => setIsOpen(false)}
+          >
+            ✕
+          </button>
+
+          {/* Ссылки меню */}
+          <nav className="flex flex-col items-center gap-4 text-center">
+            {menu.map((item) => (
+              <NavItem
+                key={item.link}
+                item={item}
+                onClick={() => setIsOpen(false)}
+              />
+            ))}
+          </nav>
+        </div>
       </div>
     </header>
   );
