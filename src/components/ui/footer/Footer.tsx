@@ -2,11 +2,11 @@
 
 import { FC } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import Socials from "../common/socials/Socials";
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-gradient-to-b from-white to-purple-200 py-8">
+    <footer className="mt-5 bg-gradient-to-b from-white to-purple-200 py-8">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 sm:grid-cols-3 sm:px-6">
         {/* Logo */}
         <div className="flex justify-center sm:justify-start">
@@ -29,40 +29,7 @@ const Footer: FC = () => {
         </nav>
 
         {/* Socials */}
-        <div className="flex justify-center gap-4 sm:justify-end">
-          <Link
-            href="https://www.facebook.com"
-            target="_blank"
-            aria-label="Facebook"
-            className="text-gray-500 transition hover:text-violet-600"
-          >
-            <Facebook size={20} />
-          </Link>
-          <Link
-            href="https://www.instagram.com"
-            target="_blank"
-            aria-label="Instagram"
-            className="text-gray-500 transition hover:text-violet-600"
-          >
-            <Instagram size={20} />
-          </Link>
-          <Link
-            href="https://www.twitter.com"
-            target="_blank"
-            aria-label="Twitter"
-            className="text-gray-500 transition hover:text-violet-600"
-          >
-            <Twitter size={20} />
-          </Link>
-          <Link
-            href="https://www.youtube.com"
-            target="_blank"
-            aria-label="YouTube"
-            className="text-gray-500 transition hover:text-violet-600"
-          >
-            <Youtube size={20} />
-          </Link>
-        </div>
+        <Socials />
       </div>
 
       {/* CopyRight */}

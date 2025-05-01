@@ -6,6 +6,7 @@ import NavItem from "./NavItem";
 import { menu } from "./menu.data";
 import CartIcon from "./CartIcon";
 import { Menu } from "lucide-react";
+import Socials from "../common/socials/Socials";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,7 @@ const Navbar = () => {
           </button>
 
           {/* Ссылки меню */}
-          <nav className="flex flex-col items-center gap-4 text-center">
+          <nav className="mb-10 flex flex-col items-center gap-4 text-center">
             {menu.map((item) => (
               <NavItem
                 key={item.link}
@@ -64,6 +65,7 @@ const Navbar = () => {
               />
             ))}
           </nav>
+          <Socials />
         </div>
       </div>
     </header>
