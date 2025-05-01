@@ -4,21 +4,47 @@ import { useStore } from "@/store/store";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2, Heart } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CartPage() {
   const cart = useStore((state) => state.cart);
   const removeFromCart = useStore((state) => state.removeFromCart);
   const addToCart = useStore((state) => state.addToCart);
 
+  const discountApplied = useStore((state) => state.discountApplied);
+  const discountCode = useStore((state) => state.discountCode);
+  const applyDiscount = useStore((state) => state.applyDiscount);
+  const clearDiscount = useStore((state) => state.clearDiscount);
+
+  const [discount, setDiscount] = useState(0);
   const [promo, setPromo] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
+  const [invalidPromo, setInvalidPromo] = useState(false);
 
   const subtotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-  const discount = promo === "DISCOUNT10" ? subtotal * 0.1 : 0;
+
+  const handleApplyPromo = () => {
+    if (promo === "DISCOUNT10") {
+      applyDiscount(promo);
+      setInvalidPromo(false);
+    } else {
+      clearDiscount();
+      setInvalidPromo(true);
+    }
+    setPromo(""); // очищаем инпут
+  };
+
+  // При каждом изменении корзины — пересчитать скидку если промоакция уже применена
+  useEffect(() => {
+    if (discountApplied && discountCode === "DISCOUNT10") {
+      setDiscount(subtotal * 0.1);
+    } else {
+      setDiscount(0);
+    }
+  }, [subtotal, discountApplied, discountCode]);
+
   const total = subtotal - discount;
 
   if (cart.length === 0) {
@@ -84,7 +110,7 @@ export default function CartPage() {
                   <span className="w-6 text-center">{item.quantity}</span>
                   <button
                     className="rounded border p-1"
-                    onClick={() =>
+                    onClick={() => {
                       addToCart(
                         item,
                         {
@@ -94,8 +120,8 @@ export default function CartPage() {
                           images: item.images,
                         },
                         item.size,
-                      )
-                    }
+                      );
+                    }}
                   >
                     <Plus size={16} />
                   </button>
@@ -125,7 +151,7 @@ export default function CartPage() {
       <div className="w-full space-y-4 p-6 lg:w-1/3">
         <h2 className="text-xl font-semibold">Summary</h2>
 
-        {/* Промокод с логикой */}
+        {/* Промокод с ручным применением */}
         <div>
           <label className="text-sm font-medium">Promo Code</label>
           <div className="mt-1 flex gap-2">
@@ -136,8 +162,8 @@ export default function CartPage() {
               placeholder="Enter code"
             />
             <button
-              onClick={() => setDiscountApplied(promo === "DISCOUNT10")}
               className="rounded bg-black px-4 py-2 text-sm text-white"
+              onClick={handleApplyPromo}
             >
               Apply
             </button>
@@ -146,6 +172,9 @@ export default function CartPage() {
             <p className="mt-1 text-sm text-green-600">
               Promo code applied: -10%
             </p>
+          )}
+          {invalidPromo && (
+            <p className="mt-1 text-sm text-red-600">Invalid promo code.</p>
           )}
         </div>
 
@@ -173,8 +202,8 @@ export default function CartPage() {
           Free shipping for members.{" "}
           <Link href="/login" className="underline">
             Sign in
-          </Link>{" "}
-          or{" "}
+          </Link>
+          or
           <Link href="/register" className="underline">
             Join us
           </Link>
@@ -190,8 +219,8 @@ export default function CartPage() {
           By clicking the button, you agree to the{" "}
           <Link href="/terms" className="underline">
             terms
-          </Link>{" "}
-          and{" "}
+          </Link>
+          and
           <Link href="/privacy" className="underline">
             privacy policy
           </Link>

@@ -28,6 +28,8 @@ interface CartItem extends Product {
 
 interface StoreState {
   cart: CartItem[];
+  discountApplied: boolean;
+  discountCode: string;
 }
 
 interface StoreActions {
@@ -38,6 +40,8 @@ interface StoreActions {
   ) => void;
   removeFromCart: (_id: string, color: string, size: string) => void;
   clearCart: () => void;
+  applyDiscount: (code: string) => void;
+  clearDiscount: () => void;
 }
 
 export const useStore = create<StoreState & StoreActions>((set) => ({
@@ -95,4 +99,17 @@ export const useStore = create<StoreState & StoreActions>((set) => ({
     })),
 
   clearCart: () => set({ cart: [] }),
+
+  discountApplied: false,
+  discountCode: "",
+  applyDiscount: (code) =>
+    set({
+      discountApplied: true,
+      discountCode: code,
+    }),
+  clearDiscount: () =>
+    set({
+      discountApplied: false,
+      discountCode: "",
+    }),
 }));
