@@ -1,8 +1,11 @@
+"use client";
+
 import { IProduct } from "@/types/product.interface";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ProductItem from "./product-item/ProductItem";
+import ProductSearch from "@/components/ui/common/search/search";
 
 interface ICatalog {
   isFull?: boolean;
@@ -10,16 +13,42 @@ interface ICatalog {
 }
 
 const Catalog: FC<ICatalog> = ({ products, isFull = true }) => {
-  const latestProducts = isFull ? products : products.slice(0, 4);
+  const [filteredProducts, setFilteredProducts] =
+    useState<IProduct[]>(products);
+
+  // Функция фильтрации
+  const handleSearch = (query: string) => {
+    if (!query) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase()),
+    );
+
+    setFilteredProducts(filtered);
+  };
+
+  // Обновлять список при получении новых товаров (если каталог пересоберётся)
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
+
+  const visibleProducts = isFull
+    ? filteredProducts
+    : filteredProducts.slice(0, 4);
 
   return (
     <div className="bg-white">
       <div className="mx-auto mb-20 w-full px-4 py-4 lg:px-15">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <h2 className="text-5xl font-bold tracking-tight text-gray-900">
             Featured Products
           </h2>
-
+          <div className="w-full max-w-sm">
+            <ProductSearch onSearch={handleSearch} />
+          </div>
           {!isFull && (
             <Link
               href="/catalog"
@@ -32,7 +61,7 @@ const Catalog: FC<ICatalog> = ({ products, isFull = true }) => {
         </div>
 
         <div className="ml:grid-cols-8 mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {latestProducts.map((product) => (
+          {visibleProducts.map((product) => (
             <ProductItem key={product._id} product={product} />
           ))}
         </div>

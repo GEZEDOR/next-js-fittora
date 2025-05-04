@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 const Socials: FC = () => {
   return (
-    <div className="flex justify-center gap-4 sm:justify-end">
+    <div className="flex justify-center gap-4">
       <Link
         href="https://www.facebook.com"
         target="_blank"

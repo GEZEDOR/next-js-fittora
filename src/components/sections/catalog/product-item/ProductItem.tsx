@@ -33,7 +33,7 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
           />
         )}
       </div>
-
+      {/* Краткая информация о товаре */}
       <div className="mt-4 flex justify-between">
         <div>
           <p className="text-sm text-gray-400 uppercase">{product.category}</p>
