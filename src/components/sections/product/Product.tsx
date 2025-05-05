@@ -168,7 +168,7 @@ const Product: FC<ISingleProduct> = ({ product }) => {
 
           <div>
             <button
-              className="mt-5 w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-gray-500"
+              className="mt-5 w-full cursor-pointer rounded-md bg-black py-3 text-white transition hover:bg-violet-600"
               onClick={handleAddToCart}
             >
               ADD TO CART

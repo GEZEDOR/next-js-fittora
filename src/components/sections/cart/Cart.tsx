@@ -91,7 +91,7 @@ export default function CartPage() {
                 <p className="text-sm text-gray-500">
                   Material: {item.material}
                 </p>
-                <p className="mt-1 text-sm">
+                <p className="mt-1 text-sm sm:hidden">
                   Price: <span className="font-semibold">{item.price} $</span>
                 </p>
                 {/* Кол-во и кнопки + - */}
@@ -146,7 +146,9 @@ export default function CartPage() {
                   Total: {item.price * item.quantity} $
                 </p>
               </div>
-              <div className="text-lg font-semibold">{item.price} $</div>
+              <div className="hidden text-lg font-semibold sm:block">
+                {item.price} $
+              </div>
             </div>
           ))}
         </div>
