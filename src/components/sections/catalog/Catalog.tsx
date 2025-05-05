@@ -16,7 +16,6 @@ const Catalog: FC<ICatalog> = ({ products, isFull = true }) => {
   const [filteredProducts, setFilteredProducts] =
     useState<IProduct[]>(products);
 
-  // Функция фильтрации
   const handleSearch = (query: string) => {
     if (!query) {
       setFilteredProducts(products);
@@ -30,7 +29,6 @@ const Catalog: FC<ICatalog> = ({ products, isFull = true }) => {
     setFilteredProducts(filtered);
   };
 
-  // Обновлять список при получении новых товаров (если каталог пересоберётся)
   useEffect(() => {
     setFilteredProducts(products);
   }, [products]);

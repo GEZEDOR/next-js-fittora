@@ -36,7 +36,7 @@ const Product: FC<ISingleProduct> = ({ product }) => {
       return;
     }
 
-    setShowSizeError(false); // сброс ошибки если все ок
+    setShowSizeError(false);
     addToCart(product, selectedVariation!, selectedSize);
   };
 
@@ -50,7 +50,6 @@ const Product: FC<ISingleProduct> = ({ product }) => {
 
   return (
     <div className="mx-auto mb-20 flex w-full flex-col gap-10 px-4 py-4 lg:flex-row lg:px-15">
-      {/* Изображения */}
       <div className="flex w-full flex-col items-center gap-4 lg:w-1/2">
         <div className="w-full max-w-md">
           <Swiper
@@ -162,7 +161,7 @@ const Product: FC<ISingleProduct> = ({ product }) => {
             selectedSize={selectedSize}
             onSizeSelect={(size) => {
               setSelectedSize(size);
-              setShowSizeError(false); // сбрасываем ошибку при выборе
+              setShowSizeError(false);
             }}
             showError={showSizeError}
           />
