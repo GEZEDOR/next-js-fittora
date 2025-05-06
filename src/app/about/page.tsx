@@ -15,7 +15,7 @@ export default function Page() {
         express themselves while respecting the planet.
       </p>
       <p className="mb-4 text-gray-600">
-        Founded in 2024, our mission is to provide high-quality clothing that
+        Founded in 2025, our mission is to provide high-quality clothing that
         fits perfectly and inspires confidence. Every item is crafted with
         attention to detail and designed to be both timeless and functional.
       </p>
