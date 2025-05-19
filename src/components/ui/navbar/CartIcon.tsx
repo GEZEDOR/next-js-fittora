@@ -1,6 +1,6 @@
 "use client";
 import { useStore } from "@/store/store";
-import { ShoppingCart } from "lucide-react"; // или любая другая иконка
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const CartIcon = () => {

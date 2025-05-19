@@ -6,7 +6,7 @@ const HeroLeft: FC = () => {
       <h1 className="mb4 text-4xl font-bold text-black sm:text-5xl md:mb-8 md:text-6xl">
         Top Fashion for a top price
       </h1>
-      <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg">
+      <p className="max-w-md leading-relaxed text-gray-500 xl:text-lg sm:mt-10">
         We sell only the most exclusive and high quality products for you. We
         are the best so come and shop with us.
       </p>

@@ -59,17 +59,13 @@ export const useStore = create<StoreState & StoreActions>()(
         const state = get();
         const existingItem = state.cart.find(
           (item) =>
-            item._id === product._id &&
-            item.color === variation.colorName &&
-            item.size === size,
+            item._id === product._id && item.color === variation.colorName && item.size === size,
         );
 
         if (existingItem) {
           set({
             cart: state.cart.map((item) =>
-              item._id === product._id &&
-              item.color === variation.colorName &&
-              item.size === size
+              item._id === product._id && item.color === variation.colorName && item.size === size
                 ? { ...item, quantity: item.quantity + 1 }
                 : item,
             ),
@@ -79,20 +75,10 @@ export const useStore = create<StoreState & StoreActions>()(
             cart: [
               ...state.cart,
               {
-                _id: product._id,
-                name: product.name,
-                slug: product.slug,
-                description: product.description,
-                material: product.material,
-                category: product.category,
-                price: product.price,
-                sizes: product.sizes,
-                variations: product.variations,
-                images: variation.images,
-                image: variation.image,
-                color: variation.colorName,
-                size: size,
-                quantity: 1,
+                _id: product._id, name: product.name, slug: product.slug, description: product.description,
+                material: product.material,category: product.category,price: product.price,
+                sizes: product.sizes, variations: product.variations, images: variation.images,
+                image: variation.image, color: variation.colorName, size: size, quantity: 1,
               },
             ],
           });
@@ -122,7 +108,7 @@ export const useStore = create<StoreState & StoreActions>()(
         }),
     }),
     {
-      name: "store-storage", // имя ключа в localStorage
+      name: "store-storage",
     },
   ),
 );
